@@ -1,0 +1,52 @@
+<!--
+  Generated template for the ChatsHistoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>ChatsHistory</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <ion-list *ngFor="let friend of friendsCopy">
+    <ion-item-sliding (click)="chat(friend)">
+      <ion-item>
+        <!-- <ion-avatar item-start>
+          <img src="img/slimer.png">
+        </ion-avatar> -->
+        <h2>{{friend.username}}</h2>
+        <p>{{friend.lastMessage}}</p>
+      </ion-item>
+      <ion-item-options side="left">
+        <button ion-button color="primary">
+          <ion-icon name="text"></ion-icon>
+          Text
+        </button>
+        <button ion-button color="secondary">
+          <ion-icon name="call"></ion-icon>
+          Call
+        </button>
+      </ion-item-options>
+      <ion-item-options side="right">
+        <button ion-button color="primary">
+          <ion-icon name="mail"></ion-icon>
+          Email
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+
+  <ion-fab right bottom>
+    <button ion-fab color="danger" (click)="newMessage()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
+</ion-content>

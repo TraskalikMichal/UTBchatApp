@@ -1,0 +1,92 @@
+page-chat {
+    .innerMeassage {
+        display: inline-block;
+        padding: 5px 10px;
+        background: #E0E0E0;
+        margin: 2.5px;
+        color: black;
+        border-radius: 10px;
+    }
+
+    .username {
+        font-weight: bold;
+        font-size: 75%;
+    }
+
+    .message {
+        font-size: 110%;
+
+        /* For long words */
+        /* These are technically the same, but use both */
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+
+        -ms-word-break: break-all;
+        /* This is the dangerous one in WebKit, as it breaks things wherever */
+        word-break: break-all;
+        /* Instead use this non-standard one: */
+        word-break: break-word;
+
+        /* Adds a hyphen where the word breaks, if supported (No Blink) */
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+    }
+
+    .message:after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+
+    .messageLeft {
+        float: left;
+    }
+
+    .messageRight {
+        float: right;
+        background: #1976D2;
+        color: white;
+    }
+
+    textarea.text-input.text-input-md {
+        max-height: 150px;
+        min-height: 39px;
+        padding: 10px;
+        border: solid #488aff 1px;
+        border-radius: 10px;
+        background: white;
+    }
+
+    .toolbar-title {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+    }
+
+    .title .elem:first-child {
+      flex-grow: 1;
+      align-self: center;
+    }
+
+    #logout {
+      float: right;
+    }
+
+    #footer {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+    }
+
+    #footer .elem:first-child {
+        flex-grow: 1;
+    }
+
+    #footer button {
+        margin-bottom: 11px;
+        height: 40px;
+        width: 70px;
+    }
+}
