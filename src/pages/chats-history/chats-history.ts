@@ -68,28 +68,20 @@ export class ChatsHistoryPage{
           });
           datafriend.chats.chat = lastChat[lastChat.length-1];
 
-          var tempFriend: Friend = {lastMessage: "", username: "", uid: ""};
+          var tempFriend: Friend = {lastMessage: "", username: "", uid: "", seen: false};
           tempFriend.username = datafriend.chats.username;
           tempFriend.uid = datafriend.uid;
           tempFriend.lastMessage = datafriend.chats.chat.username == this.username
             ? "Já: " + datafriend.chats.chat.message
             : datafriend.chats.chat.message;
+          tempFriend.seen = datafriend.chats.seen;
 
           this.friends.push(tempFriend);
-
         }
         this.friendsCopy = this.friends;
       });
     });
   }
-
-
-  /* ionViewDidEnter() {
-    this.friendsCopy = [];
-    this.friendsCopy.length = 0;
-    this.friendsCopy = this.friends;
-    console.log(this.friendsCopy);
-  } */
 
   newMessage() {
     this.showPrompt();
@@ -99,7 +91,8 @@ export class ChatsHistoryPage{
     this.navCtrl.push('ChatPage', {
       uid: this.userId,
       friend: friend.uid,
-      usernameOfFriend: friend.username
+      usernameOfFriend: friend.username,
+      seen: friend.seen
     });
   }
 
@@ -123,11 +116,7 @@ export class ChatsHistoryPage{
         {
           text: 'Save',
           handler: data => {
-
-
-
               var friend;
-
               for(let user of this.resultArray)
               {
                 if(user.username === data.username)
@@ -153,14 +142,10 @@ export class ChatsHistoryPage{
                 });
                 toast.present();
               }
-
-
           }
-
         }
       ]
     });
     prompt.present();
   }
-
 }

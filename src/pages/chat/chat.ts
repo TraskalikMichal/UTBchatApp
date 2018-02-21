@@ -40,6 +40,7 @@ export class ChatPage {
   friend: string = "";
   uid: string = "";
   friendUsername: string = "";
+  seen: boolean = false;
 
   constructor(
     public db: AngularFireDatabase,
@@ -62,14 +63,22 @@ export class ChatPage {
     this.uid = this.navParams.get('uid');
     this.friend = this.navParams.get('friend');
     this.friendUsername = this.navParams.get('usernameOfFriend');
+    this.seen = this.navParams.get('seen');
 
-
+    if(this.seen==false)
+    {
+      this.db.object('users/'+this.uid+'/friends/'+this.friend+'/seen').set(true);
+    }
 
     this.items = this.db.list('users/'+this.uid+'/friends/'+this.friend+'/chat').valueChanges().subscribe(data => {
       this.messages = data;
-      // setTimeout(() => {
-      //   this.content.scrollToBottom(0);
-      // }, 500);
+      setTimeout(() => {
+        if (this.content._footerEle != null)
+        {
+          this.content.scrollToBottom(0);
+          this.db.object('users/'+this.uid+'/friends/'+this.friend+'/seen').set(true);
+        }
+      }, 500);
     });
   }
 
@@ -81,17 +90,19 @@ export class ChatPage {
         message: this.message
       }).then(()=>{
         this.chatContent.style.marginBottom = this.chatFooter.clientHeight + "px";
-        //this.content.scrollToBottom(0);
+        this.content.scrollToBottom(0);
       });
       this.db.list('users/'+this.friend+'/friends/'+this.uid+'/chat').push({
         username: this.username,
         message: this.message
       }).then(()=>{
         this.chatContent.style.marginBottom = this.chatFooter.clientHeight + "px";
-        //this.content.scrollToBottom(0);
+        this.content.scrollToBottom(0);
       });
       this.db.object('users/'+this.uid+'/friends/'+this.friend+'/username').set(this.friendUsername);
       this.db.object('users/'+this.friend+'/friends/'+this.uid+'/username').set(this.username);
+      this.db.object('users/'+this.friend+'/friends/'+this.uid+'/seen').set(false);
+      this.db.object('users/'+this.uid+'/friends/'+this.friend+'/seen').set(true);
     }
 
     this.message="";
